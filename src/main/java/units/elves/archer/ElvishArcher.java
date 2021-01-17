@@ -1,4 +1,4 @@
-package main.java.units.elves.instances;
+package main.java.units.elves.archer;
 
 import main.java.units.Unit;
 

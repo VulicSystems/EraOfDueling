@@ -1,7 +1,6 @@
-package main.java.units.elves.userData;
+package main.java.units.elves.fighter;
 
 import main.java.units.UnitCategory;
-import main.java.units.elves.instances.ElvishFighter;
 
 public class ElvishFighterUnitCategory implements UnitCategory<ElvishFighter> {
 
@@ -16,6 +15,5 @@ public class ElvishFighterUnitCategory implements UnitCategory<ElvishFighter> {
     public ElvishFighter createInstance() {
         return new ElvishFighter(level);
     }
-
 
 }

@@ -1,4 +1,4 @@
-package main.java.units.elves.instances;
+package main.java.units.elves.fighter;
 
 import main.java.units.Unit;
 

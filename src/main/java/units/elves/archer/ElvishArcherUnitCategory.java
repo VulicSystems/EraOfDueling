@@ -1,7 +1,6 @@
-package main.java.units.elves.userData;
+package main.java.units.elves.archer;
 
 import main.java.units.UnitCategory;
-import main.java.units.elves.instances.ElvishArcher;
 
 public class ElvishArcherUnitCategory implements UnitCategory<ElvishArcher> {
     private int level = 1;
@@ -15,6 +14,5 @@ public class ElvishArcherUnitCategory implements UnitCategory<ElvishArcher> {
     public ElvishArcher createInstance() {
         return new ElvishArcher(level);
     }
-
 
 }
