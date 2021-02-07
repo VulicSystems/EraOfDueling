@@ -13,6 +13,7 @@ repositories {
     maven { url "http://artifactory.terasology.org/artifactory/virtual-repo-live" }
     maven { url = 'https://heisluft.de/maven/' }
 }
+
 sourceSets {
     main {
         java {
@@ -20,9 +21,10 @@ sourceSets {
         }
     }
 }
+
 dependencies {
     compile 'junit:junit:4.12'
 
     //Adds the ECS framework
-    implementation(group: 'org.terasology.gestalt', name: 'gestalt-entity-system', version: '7.0.6-SNAPSHOT')
+    compile(group: 'org.terasology.gestalt', name: 'gestalt-entity-system', version: '7.0.6-SNAPSHOT')
 }
