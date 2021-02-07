@@ -1,6 +1,6 @@
-package main.java.units.elves.archer;
+package units.elves.archer;
 
-import main.java.units.UnitCategory;
+import units.UnitCategory;
 
 public class ElvishArcherUnitCategory implements UnitCategory<ElvishArcher> {
     private int level = 1;

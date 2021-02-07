@@ -1,6 +1,6 @@
-package main.java.units.elves.archer;
+package units.elves.archer;
 
-import main.java.units.Unit;
+import units.Unit;
 
 public class ElvishArcher implements Unit {
     private final int LEVEL;

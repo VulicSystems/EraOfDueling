@@ -1,8 +1,9 @@
-package main.java.units;
+package org.StrategyGame.units;
 
 /**
  * This represents the information about a particular type of unit, and can create an individual instance of that unit.
  * This is tied to a specific user, and each user should only have one of each concrete UnitCategory.
+ *
  * @param <T> the type of unit this represents
  */
 public interface UnitCategory<T extends Unit> {
@@ -15,6 +16,7 @@ public interface UnitCategory<T extends Unit> {
 
     /**
      * Creates an instance of the type of unit that the category represents.
+     *
      * @return an instance of the unit
      */
     public T createInstance();

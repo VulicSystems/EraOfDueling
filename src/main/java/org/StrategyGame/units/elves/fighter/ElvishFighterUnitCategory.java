@@ -1,6 +1,6 @@
-package main.java.units.elves.fighter;
+package units.elves.fighter;
 
-import main.java.units.UnitCategory;
+import units.UnitCategory;
 
 public class ElvishFighterUnitCategory implements UnitCategory<ElvishFighter> {
 

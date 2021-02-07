@@ -1,14 +1,14 @@
-package main.java;
+package org.StrategyGame;
 
 /**
  * Represents any modification or action that should happen. The data necessary for proper execution should be passed in
- * to the constructor when the Command is created.
- * Note that it only will make those changes on a call to {@code execute()}, NOT when the Command is instantiated.
+ * to the constructor when the org.StrategyGame.Command is created.
+ * Note that it only will make those changes on a call to {@code execute()}, NOT when the org.StrategyGame.Command is instantiated.
  */
 public interface Command {
 
     /**
-     * Performs the action that the Command represents.
+     * Performs the action that the org.StrategyGame.Command represents.
      */
     public void execute();
 

@@ -1,6 +1,6 @@
-package main.java.movement;
+package org.StrategyGame.movement;
 
-import main.java.Coordinates;
+import org.StrategyGame.Coordinates;
 
 /**
  * Upon execution, moves the unit to the southwest by one tile.

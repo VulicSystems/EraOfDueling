@@ -1,6 +1,6 @@
-package main.java.movement;
+package movement;
 
-import main.java.Command;
+import Command;
 
 /**
  * Represents an instruction to move a game entity.
