@@ -1,6 +1,6 @@
-package movement;
+package org.StrategyGame.movement;
 
-import Command;
+import org.StrategyGame.Command;
 
 /**
  * Represents an instruction to move a game entity.

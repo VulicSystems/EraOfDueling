@@ -1,6 +1,6 @@
-package units.elves.archer;
+package org.StrategyGame.units.elves.archer;
 
-import units.UnitCategory;
+import org.StrategyGame.units.UnitCategory;
 
 public class ElvishArcherUnitCategory implements UnitCategory<ElvishArcher> {
     private int level = 1;

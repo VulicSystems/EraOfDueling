@@ -1,6 +1,6 @@
-package units.elves.fighter;
+package org.StrategyGame.units.elves.fighter;
 
-import units.UnitCategory;
+import org.StrategyGame.units.UnitCategory;
 
 public class ElvishFighterUnitCategory implements UnitCategory<ElvishFighter> {
 

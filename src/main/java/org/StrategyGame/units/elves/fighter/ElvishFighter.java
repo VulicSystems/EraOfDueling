@@ -1,12 +1,12 @@
-package units.elves.fighter;
+package org.StrategyGame.units.elves.fighter;
 
-import units.Unit;
+import org.StrategyGame.units.Unit;
 
 public class ElvishFighter implements Unit {
 
     private final int LEVEL;
 
-    public ElvishFighter(int level){
+    public ElvishFighter(int level) {
         this.LEVEL = level;
     }
 

@@ -1,11 +1,11 @@
-package units.elves.archer;
+package org.StrategyGame.units.elves.archer;
 
-import units.Unit;
+import org.StrategyGame.units.Unit;
 
 public class ElvishArcher implements Unit {
     private final int LEVEL;
 
-    public ElvishArcher(int level){
+    public ElvishArcher(int level) {
         this.LEVEL = level;
     }
 
