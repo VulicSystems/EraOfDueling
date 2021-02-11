@@ -1,4 +1,4 @@
-package org.StrategyGame.units;
+package org.strategyGame.units;
 
 /**
  * This represents the information about a particular type of unit, and can create an individual instance of that unit.

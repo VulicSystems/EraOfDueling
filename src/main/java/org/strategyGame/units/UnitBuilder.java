@@ -1,4 +1,4 @@
-package org.StrategyGame.units;
+package org.strategyGame.units;
 
 public class UnitBuilder {
     public static <T extends Unit> T createUnit(UnitCategory<T> unitCategory) {
