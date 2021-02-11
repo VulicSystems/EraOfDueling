@@ -1,7 +1,7 @@
 package org.strategyGame.movement;
 
 import org.strategyGame.Coordinates;
-import org.strategyGame.ecsStructure.System;
+import org.strategyGame.ecsStructure.GameSystem;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 import org.terasology.gestalt.entitysystem.event.EventResult;
 import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
@@ -11,7 +11,7 @@ import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
  *
  * TODO validate the movement to ensure that it does not go out of bounds
  */
-public class MovementSystem implements System {
+public class MovementSystem implements GameSystem {
 
     @ReceiveEvent(components = {Coordinates.class})
     public EventResult moveEastNorth(MoveEastNorthEvent moveEastNorthEvent, EntityRef entity) {

@@ -1,4 +1,4 @@
 package org.strategyGame.ecsStructure;
 
-public interface System {
+public interface GameSystem {
 }
