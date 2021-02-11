@@ -1,4 +1,4 @@
-package org.StrategyGame.movement;
+package org.strategyGame.movement;
 
 import org.terasology.gestalt.entitysystem.event.Event;
 

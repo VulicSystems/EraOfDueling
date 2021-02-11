@@ -1,7 +1,7 @@
-package org.StrategyGame.ecsStructure;
+package org.strategyGame.ecsStructure;
 
-import org.StrategyGame.Coordinates;
-import org.StrategyGame.movement.MovementSystem;
+import org.strategyGame.Coordinates;
+import org.strategyGame.movement.MovementSystem;
 import org.terasology.gestalt.entitysystem.component.Component;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
 import org.terasology.gestalt.entitysystem.component.store.ArrayComponentStore;
