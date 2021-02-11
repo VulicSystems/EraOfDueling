@@ -1,7 +1,7 @@
-package org.StrategyGame.movement;
+package org.strategyGame.movement;
 
-import org.StrategyGame.Coordinates;
-import org.StrategyGame.ecsStructure.System;
+import org.strategyGame.Coordinates;
+import org.strategyGame.ecsStructure.System;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 import org.terasology.gestalt.entitysystem.event.EventResult;
 import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
