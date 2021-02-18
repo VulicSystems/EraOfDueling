@@ -17,14 +17,14 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDir 'src/main/java'
         }
     }
 }
 
 dependencies {
-    compile 'junit:junit:4.12'
+    testImplementation('junit:junit:4.12')
 
     //Adds the ECS framework
-    compile(group: 'org.terasology.gestalt', name: 'gestalt-entity-system', version: '7.0.6-SNAPSHOT')
+    implementation(group: 'org.terasology.gestalt', name: 'gestalt-entity-system', version: '7.0.6-SNAPSHOT')
 }
