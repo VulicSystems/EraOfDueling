@@ -1,4 +1,5 @@
 package org.strategyGame.health;
+
 import junit.framework.TestCase;
 import org.strategyGame.Health;
 import org.junit.Before;
