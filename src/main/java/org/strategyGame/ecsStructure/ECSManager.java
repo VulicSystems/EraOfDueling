@@ -1,6 +1,8 @@
 package org.strategyGame.ecsStructure;
 
 import org.strategyGame.Coordinates;
+import org.strategyGame.Health;
+import org.strategyGame.health.DamageSystem;
 import org.strategyGame.movement.MovementSystem;
 import org.terasology.gestalt.entitysystem.component.Component;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
@@ -37,11 +39,13 @@ public class ECSManager {
 
         //TODO: have this automatically search for Component classes, rather than having to hardcode each
         componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(Coordinates.class))));
+        componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(Health.class))));
 
         entityManager = new CoreEntityManager(componentStores);
 
         //TODO have this automatically search for each System, rather than having to hardcode each
         eventReceiverMethodSupport.register(new MovementSystem(), eventSystem);
+        eventReceiverMethodSupport.register(new DamageSystem(), eventSystem);
     }
 
     /**
