@@ -23,7 +23,7 @@ public class DamageSystem implements GameSystem {
 
     @ReceiveEvent(components = {Health.class})
     public EventResult heal(HealEvent healEvent, EntityRef entity) {
-         health = entity.getComponent(Health.class).get();
+        Health health = entity.getComponent(Health.class).get();
         if ((health.currentHealth + healEvent.healAmount) > health.maxHealth)
             health.currentHealth = health.maxHealth;
         else
