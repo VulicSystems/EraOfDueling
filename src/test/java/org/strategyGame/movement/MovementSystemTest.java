@@ -10,7 +10,7 @@ import org.terasology.gestalt.entitysystem.entity.EntityRef;
 public class MovementSystemTest extends TestCase {
 
     private ECSManager ecsManager;
-    Coordinates coordinates;
+    private Coordinates coordinates;
 
     @Before
     public void setUp() throws Exception {
