@@ -1,15 +1,14 @@
-package org.strategyGame.movement;
+package org.strategyGame.health;
 import junit.framework.TestCase;
-import org.strategyGame.health.DamageEvent;
+import org.strategyGame.Health;
 import org.junit.Before;
 import org.strategyGame.ecsStructure.ECSManager;
-import main.java.org.strategyGame.Health;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 
 public class HealthSystemTest extends TestCase {
     private ECSManager ecsManager;
-    Health health;
+    private Health health;
 
     @Before
     public void setUp() throws Exception {

@@ -1,8 +1,7 @@
 package org.strategyGame.health;
 
-import main.java.org.strategyGame.Health;
+import org.strategyGame.Health;
 import org.strategyGame.ecsStructure.GameSystem;
-import org.strategyGame.health.DamageEvent;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 import org.terasology.gestalt.entitysystem.event.EventResult;
 import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
@@ -18,6 +17,7 @@ public class DamageSystem  implements GameSystem{
         //check to make sure health does not fall bellow zero
         health.currentHealth = (health.currentHealth > damageEvent.damageAmount)
                 ? (health.currentHealth - damageEvent.damageAmount) : 0;
+        entity.setComponent(health);
         return EventResult.CONTINUE;
     }
 
@@ -28,6 +28,7 @@ public class DamageSystem  implements GameSystem{
             health.currentHealth = health.maxHealth;
         else
             health.currentHealth += healEvent.healAmount;
+        entity.setComponent(health);
         return EventResult.CONTINUE;
     }
 }
