@@ -1,11 +1,11 @@
-package main.java.org.strategyGame.health;
+package org.strategyGame.health;
 
 import main.java.org.strategyGame.Health;
 import org.strategyGame.ecsStructure.GameSystem;
+import org.strategyGame.health.DamageEvent;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 import org.terasology.gestalt.entitysystem.event.EventResult;
 import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
-import java.util.Random;
 
 /*
     This system handles the health systems of entities with a {@link Health} component

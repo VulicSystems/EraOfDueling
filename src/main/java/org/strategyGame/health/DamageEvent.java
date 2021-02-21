@@ -1,4 +1,4 @@
-package main.java.org.strategyGame.health;
+package org.strategyGame.health;
 
 import org.terasology.gestalt.entitysystem.event.Event;
 
