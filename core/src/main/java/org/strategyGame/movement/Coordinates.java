@@ -1,4 +1,4 @@
-package org.strategyGame;
+package org.strategyGame.movement;
 
 import org.terasology.gestalt.entitysystem.component.Component;
 

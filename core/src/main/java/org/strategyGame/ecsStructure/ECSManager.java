@@ -1,6 +1,6 @@
 package org.strategyGame.ecsStructure;
 
-import org.strategyGame.Coordinates;
+import org.strategyGame.movement.Coordinates;
 import org.strategyGame.health.Health;
 import org.strategyGame.health.DamageSystem;
 import org.strategyGame.movement.MovementSystem;
