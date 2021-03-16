@@ -7,6 +7,7 @@ import org.strategyGame.MyGdxGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "Strategy Game";
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

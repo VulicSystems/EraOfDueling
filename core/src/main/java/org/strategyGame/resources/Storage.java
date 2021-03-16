@@ -42,8 +42,8 @@ public class Storage {
      */
     public void addResources(float additionalAmount) {
         this.amount += additionalAmount;
-        if (additionalAmount > capacity) {
-            additionalAmount = capacity;
+        if (amount > capacity) {
+            amount = capacity;
         }
     }
 
