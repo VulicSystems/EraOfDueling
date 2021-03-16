@@ -47,13 +47,13 @@ public class MyGdxGame extends ApplicationAdapter {
     private void update() {
         playerData.addResources(new TypedResourceAmount(ResourceType.WOOD, 100));
         playerData.addResources(new TypedResourceAmount(ResourceType.STONE, 100));
-        //TODO remove this - purely for testing purposes
-        System.out.println(playerData.getStorageAmount(ResourceType.WOOD));
     }
 
     private void renderUpdatedGame() {
         batch.begin();
-        batch.draw(img, 50, -1);
+
+        batch.draw(img, 100, 10);
+
         batch.end();
     }
 
