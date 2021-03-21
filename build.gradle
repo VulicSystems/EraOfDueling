@@ -72,6 +72,12 @@ project(":android") {
                 storePassword 'yYL4b3y6RbFBNtCmqc7thmQlF'
             }
         }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+            }
+        }
     }
     dependencies {
         implementation project(":core")
