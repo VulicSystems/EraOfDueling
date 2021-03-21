@@ -59,51 +59,10 @@ project(":android") {
 
     configurations { natives }
 
-    ext {
-        // Set broken defaults just so Gradle won't complain about non-existent properties. Supply real values externally
-        keyStoreToUse = "notset"
-        storePassToUse = "notset"
-        keyAliasToUse = "notset"
-        keyPassToUse = "notset"
-        // Load values from properties passed to the project, such as via gradle.properties in the user's home .gradle dir
-        if (project.hasProperty("signingKeystore")) {
-            keyStoreToUse = signingKeystore
-        }
-
-        if (project.hasProperty("signingStorePass")) {
-            storePassToUse = signingStorePass
-        }
-
-        if (project.hasProperty("signingKeyAlias")) {
-            keyAliasToUse = signingKeyAlias
-        }
-
-        if (project.hasProperty("signingKeyPass")) {
-            keyPassToUse = signingKeyPass
-        }
-    }
-
     android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
-        }
-
-        signingConfigs {
-            release {
-                storeFile file(keyStoreToUse)
-                storePassword storePassToUse
-                keyAlias keyAliasToUse
-                keyPassword keyPassToUse
-            }
-        }
-
-        buildTypes {
-            release {
-                debuggable false
-                jniDebuggable false
-                signingConfig signingConfigs.release
-            }
         }
     }
     dependencies {
