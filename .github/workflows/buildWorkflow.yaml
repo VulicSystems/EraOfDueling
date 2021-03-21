@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
         echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
-        gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --bath release.keystore.asc > android/release.keystore
+        gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --batch release.keystore.asc > android/release.keystore
   build:
     runs-on: ubuntu-latest
 
