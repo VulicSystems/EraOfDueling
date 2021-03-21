@@ -60,6 +60,7 @@ project(":android") {
     configurations { natives }
 
     gradle.startParameter.excludedTaskNames += "validateSigningDebug"
+    gradle.startParameter.excludedTaskNames += "signingConfigWriterDebug"
 
     android {
         compileOptions {
