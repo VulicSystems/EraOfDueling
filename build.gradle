@@ -59,6 +59,8 @@ project(":android") {
 
     configurations { natives }
 
+    gradle.startParameter.excludedTaskNames += "validateSigningDebug"
+
     android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
