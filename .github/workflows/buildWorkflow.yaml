@@ -3,6 +3,14 @@ name: Java CI
 on: [push]
 
 jobs:
+  assembleRelease: 
+    name: restoreReleaseKeystore
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - run: |
+        echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
+        gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" --bath release.keystore.asc > android/release.keystore
   build:
     runs-on: ubuntu-latest
 
