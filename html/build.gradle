@@ -1,0 +1,10 @@
+task addSource {
+    doLast {
+        sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
+    }
+}
+
+sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = ["src/"]
+
+eclipse.project.name = appName + "-html"
