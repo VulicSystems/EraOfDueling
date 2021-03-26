@@ -5,12 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import org.strategyGame.graphics.TextDisplay;
 import org.strategyGame.resources.ResourceType;
 import org.strategyGame.resources.TypedResourceAmount;
 
 public class MyGdxGame extends ApplicationAdapter {
-    SpriteBatch batch;
+    private SpriteBatch batch;
     Texture img;
+
+    private TextDisplay textDisplay;
 
     private final float IDEALIZED_FRAME_LENGTH = 1.0f / 60.0f;
     private float elapsedTimeSinceLastUpdate = 0;
@@ -25,6 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
         playerData = new PlayerData();
+        textDisplay = new TextDisplay(batch);
     }
 
     /**
@@ -45,14 +49,15 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     private void update() {
-        playerData.addResources(new TypedResourceAmount(ResourceType.WOOD, 100));
-        playerData.addResources(new TypedResourceAmount(ResourceType.STONE, 100));
+        playerData.addResources(new TypedResourceAmount(ResourceType.WOOD, (float) (1000 / 60.0)));
+        playerData.addResources(new TypedResourceAmount(ResourceType.STONE, (float) (1000 / 60.0)));
     }
 
     private void renderUpdatedGame() {
         batch.begin();
 
-        batch.draw(img, 100, 10);
+        textDisplay.displayString(((int) playerData.getStorageAmount(ResourceType.WOOD)) + " wood", 250, 250, 2);
+        batch.draw(new Texture("HexTile.png"), 100, 10);
 
         batch.end();
     }
