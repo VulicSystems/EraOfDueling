@@ -5,9 +5,9 @@ package org.strategyGame.resources;
  */
 public class TypedResourceAmount {
     public final ResourceType type;
-    public int amount;
+    public float amount;
 
-    public TypedResourceAmount(ResourceType type, int amount) {
+    public TypedResourceAmount(ResourceType type, float amount) {
         this.type = type;
         this.amount = amount;
     }
