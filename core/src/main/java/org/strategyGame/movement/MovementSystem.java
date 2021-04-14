@@ -6,59 +6,59 @@ import org.terasology.gestalt.entitysystem.event.EventResult;
 import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 
 /**
- * This system handles movement of entities with a {@link Coordinates} component.
+ * This system handles movement of entities with a {@link BoardPosition} component.
  *
  * TODO validate the movement to ensure that it does not go out of bounds
  */
 public class MovementSystem implements GameSystem {
 
-    @ReceiveEvent(components = {Coordinates.class})
+    @ReceiveEvent(components = {BoardPosition.class})
     public EventResult moveEastNorth(MoveEastNorthEvent moveEastNorthEvent, EntityRef entity) {
-        Coordinates coordinates = entity.getComponent(Coordinates.class).get();
-        coordinates.column++;
-        entity.setComponent(coordinates);
+        BoardPosition boardPosition = entity.getComponent(BoardPosition.class).get();
+        boardPosition.column++;
+        entity.setComponent(boardPosition);
         return EventResult.CONTINUE;
     }
 
-    @ReceiveEvent(components = {Coordinates.class})
+    @ReceiveEvent(components = {BoardPosition.class})
     public EventResult moveEastSouth(MoveEastSouthEvent moveEastSouthEvent, EntityRef entity) {
-        Coordinates coordinates = entity.getComponent(Coordinates.class).get();
-        coordinates.diagonal++;
-        coordinates.column++;
-        entity.setComponent(coordinates);
+        BoardPosition boardPosition = entity.getComponent(BoardPosition.class).get();
+        boardPosition.diagonal++;
+        boardPosition.column++;
+        entity.setComponent(boardPosition);
         return EventResult.CONTINUE;
     }
 
-    @ReceiveEvent(components = {Coordinates.class})
+    @ReceiveEvent(components = {BoardPosition.class})
     public EventResult moveSouth(MoveSouthEvent moveSouthEvent, EntityRef entity) {
-        Coordinates coordinates = entity.getComponent(Coordinates.class).get();
-        coordinates.diagonal++;
-        entity.setComponent(coordinates);
+        BoardPosition boardPosition = entity.getComponent(BoardPosition.class).get();
+        boardPosition.diagonal++;
+        entity.setComponent(boardPosition);
         return EventResult.CONTINUE;
     }
 
-    @ReceiveEvent(components = {Coordinates.class})
+    @ReceiveEvent(components = {BoardPosition.class})
     public EventResult moveWestSouth(MoveWestSouthEvent moveWestSouthEvent, EntityRef entity) {
-        Coordinates coordinates = entity.getComponent(Coordinates.class).get();
-        coordinates.column--;
-        entity.setComponent(coordinates);
+        BoardPosition boardPosition = entity.getComponent(BoardPosition.class).get();
+        boardPosition.column--;
+        entity.setComponent(boardPosition);
         return EventResult.CONTINUE;
     }
 
-    @ReceiveEvent(components = {Coordinates.class})
+    @ReceiveEvent(components = {BoardPosition.class})
     public EventResult moveWestNorth(MoveWestNorthEvent moveWestNorthEvent, EntityRef entity) {
-        Coordinates coordinates = entity.getComponent(Coordinates.class).get();
-        coordinates.diagonal--;
-        coordinates.column--;
-        entity.setComponent(coordinates);
+        BoardPosition boardPosition = entity.getComponent(BoardPosition.class).get();
+        boardPosition.diagonal--;
+        boardPosition.column--;
+        entity.setComponent(boardPosition);
         return EventResult.CONTINUE;
     }
 
-    @ReceiveEvent(components = {Coordinates.class})
+    @ReceiveEvent(components = {BoardPosition.class})
     public EventResult moveNorth(MoveNorthEvent moveNorthEvent, EntityRef entity) {
-        Coordinates coordinates = entity.getComponent(Coordinates.class).get();
-        coordinates.diagonal--;
-        entity.setComponent(coordinates);
+        BoardPosition boardPosition = entity.getComponent(BoardPosition.class).get();
+        boardPosition.diagonal--;
+        entity.setComponent(boardPosition);
         return EventResult.CONTINUE;
     }
 }

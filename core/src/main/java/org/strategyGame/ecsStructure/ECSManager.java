@@ -1,6 +1,6 @@
 package org.strategyGame.ecsStructure;
 
-import org.strategyGame.movement.Coordinates;
+import org.strategyGame.movement.BoardPosition;
 import org.strategyGame.health.Health;
 import org.strategyGame.health.DamageSystem;
 import org.strategyGame.movement.MovementSystem;
@@ -38,7 +38,7 @@ public class ECSManager {
         List<ComponentStore<?>> componentStores = new ArrayList<>();
 
         //TODO: have this automatically search for Component classes, rather than having to hardcode each
-        componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(Coordinates.class))));
+        componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(BoardPosition.class))));
         componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(Health.class))));
 
         entityManager = new CoreEntityManager(componentStores);
