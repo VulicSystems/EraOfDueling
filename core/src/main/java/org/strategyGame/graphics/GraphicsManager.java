@@ -1,26 +1,97 @@
 package org.strategyGame.graphics;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.strategyGame.PlayerData;
-import org.strategyGame.resources.ResourceType;
+import org.strategyGame.ecsStructure.ECSManager;
+import org.terasology.gestalt.entitysystem.entity.EntityIterator;
+import org.terasology.gestalt.entitysystem.entity.EntityRef;
 
+import java.util.HashMap;
+
+/**
+ * This handles the graphics for the game. Entities with a {@link GraphicsComponent} are automatically rendered, and
+ * text can be displayed by calling {@code displayString()}.
+ */
 public class GraphicsManager {
 
     private SpriteBatch batch;
     private TextDisplay textDisplay;
-    private PlayerData playerData;
 
-    public GraphicsManager(SpriteBatch batch, PlayerData playerData) {
+    private PlayerData playerData;
+    private ECSManager ecsManager;
+
+    private TextureAtlas textureAtlas = new TextureAtlas("sprites.txt");
+    private HashMap<String, Sprite> sprites;
+
+    public GraphicsManager(SpriteBatch batch, PlayerData playerData, ECSManager ecsManager) {
         this.batch = batch;
+        batch.enableBlending();
         textDisplay = new TextDisplay(batch);
         this.playerData = playerData;
+        this.ecsManager = ecsManager;
+
+        sprites = new HashMap<>();
     }
 
+    /**
+     * Renders each entity with a {@link GraphicsComponent}.
+     */
     public void render() {
-        textDisplay.displayString(((int) playerData.getStorageAmount(ResourceType.WOOD)) + " wood", Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 2);
-        batch.draw(new Texture("HexTile.png"), 100, 10);
+        EntityIterator iterator = ecsManager.iterate(new GraphicsComponent());
+        while (iterator.next()) {
+            renderEntity(iterator.getEntity());
+        }
     }
 
+    /**
+     * Renders a specific entity.
+     */
+    private void renderEntity(EntityRef entity) {
+        GraphicsComponent graphicsComponent = entity.getComponent(GraphicsComponent.class).get();
+        Sprite sprite = getSprite(graphicsComponent.spriteName);
+        if (sprite != null) {
+            sprite.setPosition(graphicsComponent.x, graphicsComponent.y);
+            sprite.setFlip(graphicsComponent.isFlippedHorizontally, graphicsComponent.isFlippedVertically);
+            sprite.draw(batch);
+        }
+    }
+
+    /**
+     * Retrieves a sprite instance if one already exists, or creates one if not.
+     */
+    private Sprite getSprite(String spriteName) {
+        if (!sprites.containsKey(spriteName)) {
+            Sprite sprite = textureAtlas.createSprite(spriteName);
+            if (sprite != null) {
+                sprites.put(spriteName, sprite);
+            }
+            return sprite;
+        }
+        return sprites.get(spriteName);
+    }
+
+    /**
+     * Displays a string at the specified horizontal and vertical location.
+     */
+    public void displayString(String string, float horizontalPosition, float verticalPosition) {
+        textDisplay.displayString(string, horizontalPosition, verticalPosition);
+    }
+
+    /**
+     * Displays a string at the specified horizontal and vertical location, multiplied in size by the scale.
+     *
+     * @param scale the size multiplier
+     */
+    public void displayString(String string, float horizontalPosition, float verticalPosition, float scale) {
+        textDisplay.displayString(string, horizontalPosition, verticalPosition, scale);
+    }
+
+    /**
+     * Cleans up assets when the game is closed.
+     */
+    public void dispose() {
+        textureAtlas.dispose();
+    }
 }
