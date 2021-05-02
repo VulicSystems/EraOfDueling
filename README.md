@@ -1,4 +1,4 @@
-StrategyGame
+***ERA OF RESOURCES***
 
 (when we have a wiki, the following should be moved there)
 
