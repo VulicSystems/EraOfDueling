@@ -1,10 +1,6 @@
 package org.strategyGame.ecsStructure;
 
-import org.strategyGame.graphics.GraphicsComponent;
-import org.strategyGame.movement.BoardPosition;
-import org.strategyGame.health.Health;
-import org.strategyGame.health.DamageSystem;
-import org.strategyGame.movement.MovementSystem;
+import org.reflections.Reflections;
 import org.terasology.gestalt.entitysystem.component.Component;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
 import org.terasology.gestalt.entitysystem.component.store.ArrayComponentStore;
@@ -19,6 +15,7 @@ import org.terasology.gestalt.entitysystem.event.EventSystem;
 import org.terasology.gestalt.entitysystem.event.impl.EventReceiverMethodSupport;
 import org.terasology.gestalt.entitysystem.event.impl.EventSystemImpl;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,16 +35,27 @@ public class ECSManager {
     public ECSManager(ComponentManager componentManager) {
         List<ComponentStore<?>> componentStores = new ArrayList<>();
 
-        //TODO: have this automatically search for Component classes, rather than having to hardcode each
-        componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(BoardPosition.class))));
-        componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(Health.class))));
-        componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(GraphicsComponent.class))));
+        //Automatically constructs a component store for each component
+        Reflections reflections = new Reflections();
+        for (Class<? extends Component> componentClass : reflections.getSubTypesOf(Component.class)) {
+            if (!Modifier.isAbstract(componentClass.getModifiers())) {
+                componentStores.add(new ConcurrentComponentStore<>(new ArrayComponentStore<>(componentManager.getType(componentClass))));
+            }
+        }
 
         entityManager = new CoreEntityManager(componentStores);
 
-        //TODO have this automatically search for each System, rather than having to hardcode each
-        eventReceiverMethodSupport.register(new MovementSystem(), eventSystem);
-        eventReceiverMethodSupport.register(new DamageSystem(), eventSystem);
+        for (Class<? extends GameSystem> systemClass : reflections.getSubTypesOf(GameSystem.class)) {
+            if (!Modifier.isAbstract(systemClass.getModifiers())) {
+                try {
+                    eventReceiverMethodSupport.register(systemClass.newInstance(), eventSystem);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
