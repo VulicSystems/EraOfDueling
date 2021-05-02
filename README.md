@@ -1,4 +1,4 @@
-***ERA OF RESOURCES***
+***ERA OF WARFARE***
 
 (when we have a wiki, the following should be moved there)
 
