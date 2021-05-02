@@ -54,6 +54,7 @@ public class GraphicsManager {
         if (sprite != null) {
             sprite.setPosition(graphicsComponent.x, graphicsComponent.y);
             sprite.setFlip(graphicsComponent.isFlippedHorizontally, graphicsComponent.isFlippedVertically);
+            sprite.setSize(graphicsComponent.width, graphicsComponent.height);
             sprite.draw(batch);
         }
     }

@@ -37,6 +37,8 @@ public class MyGdxGame extends ApplicationAdapter {
         GraphicsComponent graphicsComponent = new GraphicsComponent();
         graphicsComponent.x = 0;
         graphicsComponent.y = 0;
+        graphicsComponent.width = 250;
+        graphicsComponent.height = 250;
         graphicsComponent.spriteName = "swordsman";
         ecsManager.createEntity(graphicsComponent);
 
@@ -44,6 +46,8 @@ public class MyGdxGame extends ApplicationAdapter {
         graphicsComponent = new GraphicsComponent();
         graphicsComponent.x = 300;
         graphicsComponent.y = 0;
+        graphicsComponent.width = 250;
+        graphicsComponent.height = 250;
         graphicsComponent.spriteName = "swordsman";
         graphicsComponent.isFlippedHorizontally = true;
         ecsManager.createEntity(graphicsComponent);
