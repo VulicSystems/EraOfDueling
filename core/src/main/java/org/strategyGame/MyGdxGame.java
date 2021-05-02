@@ -33,6 +33,10 @@ public class MyGdxGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         graphicsManager = new GraphicsManager(batch, playerData, ecsManager);
 
+        runTestCode();
+    }
+
+    private void runTestCode() {
         //Entities for testing
         GraphicsComponent graphicsComponent = new GraphicsComponent();
         graphicsComponent.x = 0;
