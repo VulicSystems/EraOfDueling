@@ -10,7 +10,6 @@ import org.strategyGame.graphics.GraphicsManager;
 import org.strategyGame.resources.ResourceType;
 import org.strategyGame.resources.TypedResourceAmount;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
-import org.terasology.gestalt.entitysystem.entity.EntityRef;
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -33,10 +32,10 @@ public class MyGdxGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         graphicsManager = new GraphicsManager(batch, playerData, ecsManager);
 
-        runTestCode();
+        runTestCodeSetup();
     }
 
-    private void runTestCode() {
+    private void runTestCodeSetup() {
         //Entities for testing
         GraphicsComponent graphicsComponent = new GraphicsComponent();
         graphicsComponent.x = 0;
@@ -45,7 +44,6 @@ public class MyGdxGame extends ApplicationAdapter {
         graphicsComponent.height = 250;
         graphicsComponent.spriteName = "swordsman";
         ecsManager.createEntity(graphicsComponent);
-
 
         graphicsComponent = new GraphicsComponent();
         graphicsComponent.x = 300;
@@ -62,6 +60,8 @@ public class MyGdxGame extends ApplicationAdapter {
      */
     @Override
     public void render() {
+        ScreenUtils.clear(0.2f, 0.8f, 0.2f, 1);
+        batch.begin();
 
         //Game loop
         elapsedTimeSinceLastUpdate += Gdx.graphics.getDeltaTime();
@@ -71,6 +71,7 @@ public class MyGdxGame extends ApplicationAdapter {
             elapsedTimeSinceLastUpdate -= IDEALIZED_FRAME_LENGTH;
         }
 
+        runTestCodeUpdate();
         renderUpdatedGame();
     }
 
@@ -80,13 +81,14 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     private void renderUpdatedGame() {
-        ScreenUtils.clear(0.2f, 0.8f, 0.2f, 1);
-
-        batch.begin();
 
         graphicsManager.render();
 
         batch.end();
+    }
+
+    private void runTestCodeUpdate() {
+        graphicsManager.displayString("WORDS", 0, 250, 3);
     }
 
     @Override

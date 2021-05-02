@@ -24,11 +24,7 @@ public class TextDisplay {
      * Displays a string at the specified horizontal and vertical location.
      */
     public void displayString(String string, float horizontalPosition, float verticalPosition) {
-        bitmapFont.getData().scaleX = 1;
-        bitmapFont.getData().scaleY = 1;
-        layout.reset();
-        layout.setText(bitmapFont, string);
-        bitmapFont.draw(batch, layout, horizontalPosition, verticalPosition);
+        displayString(string, horizontalPosition, verticalPosition, 1);
     }
 
     /**
@@ -41,6 +37,7 @@ public class TextDisplay {
         bitmapFont.getData().scaleY = scale;
         layout.reset();
         layout.setText(bitmapFont, string);
+        verticalPosition += bitmapFont.getCapHeight() * scale;
         bitmapFont.draw(batch, layout, horizontalPosition, verticalPosition);
     }
 }
