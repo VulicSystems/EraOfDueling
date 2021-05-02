@@ -20,4 +20,7 @@ dependencies {
     testImplementation('junit:junit:4.12')
     //Adds the ECS framework
     implementation(group: 'org.terasology.gestalt', name: 'gestalt-entity-system', version: '7.0.6-SNAPSHOT')
+
+    //Used for building the systems and component stores in the ECSManager
+    implementation 'org.reflections:reflections:0.9.12'
 }
