@@ -1,6 +1,8 @@
 package org.strategyGame.ecsStructure;
 
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
+import org.strategyGame.ServiceLocatorMap;
 import org.terasology.gestalt.entitysystem.component.Component;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
 import org.terasology.gestalt.entitysystem.component.store.ArrayComponentStore;
@@ -15,7 +17,10 @@ import org.terasology.gestalt.entitysystem.event.EventSystem;
 import org.terasology.gestalt.entitysystem.event.impl.EventReceiverMethodSupport;
 import org.terasology.gestalt.entitysystem.event.impl.EventSystemImpl;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +37,10 @@ public class ECSManager {
     private final EventReceiverMethodSupport eventReceiverMethodSupport = new EventReceiverMethodSupport();
 
 
-    public ECSManager(ComponentManager componentManager) {
-        List<ComponentStore<?>> componentStores = new ArrayList<>();
+    public ECSManager(ComponentManager componentManager, ServiceLocatorMap serviceLocatorMap) {
+        serviceLocatorMap.add(ECSManager.class, this);
 
+        List<ComponentStore<?>> componentStores = new ArrayList<>();
         //Automatically constructs a component store for each component
         Reflections reflections = new Reflections();
         for (Class<? extends Component> componentClass : reflections.getSubTypesOf(Component.class)) {
@@ -45,10 +51,13 @@ public class ECSManager {
 
         entityManager = new CoreEntityManager(componentStores);
 
+        //Automatically creates a system of each type, and injects each with the relevant fields
         for (Class<? extends GameSystem> systemClass : reflections.getSubTypesOf(GameSystem.class)) {
             if (!Modifier.isAbstract(systemClass.getModifiers())) {
                 try {
-                    eventReceiverMethodSupport.register(systemClass.newInstance(), eventSystem);
+                    GameSystem system = systemClass.newInstance();
+                    injectFields(system, serviceLocatorMap);
+                    eventReceiverMethodSupport.register(system, eventSystem);
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -56,6 +65,25 @@ public class ECSManager {
                 }
             }
         }
+    }
+
+    private void injectFields(GameSystem system, ServiceLocatorMap serviceLocatorMap) {
+        AccessController.doPrivileged((PrivilegedAction<GameSystem>) () -> {
+            for (Field field : ReflectionUtils.getAllFields(system.getClass(),
+                    ReflectionUtils.withAnnotation(InjectedField.class))) {
+                Object value = serviceLocatorMap.get(field.getType());
+                if (value != null) {
+                    try {
+                        field.setAccessible(true);
+                        field.set(system, value);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            return null;
+        });
     }
 
     /**

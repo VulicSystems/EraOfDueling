@@ -1,6 +1,7 @@
 package org.strategyGame.health;
 
 import junit.framework.TestCase;
+import org.strategyGame.ServiceLocatorMap;
 import org.strategyGame.health.DamageEvent;
 import org.strategyGame.health.Health;
 import org.junit.Before;
@@ -15,7 +16,7 @@ public class HealthSystemTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        ecsManager = new ECSManager(new ComponentManager());
+        ecsManager = new ECSManager(new ComponentManager(), new ServiceLocatorMap());
         health = new Health();
         health.currentHealth = 100;
         health.maxHealth = 100;
