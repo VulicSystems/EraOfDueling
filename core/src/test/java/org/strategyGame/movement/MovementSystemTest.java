@@ -2,6 +2,7 @@ package org.strategyGame.movement;
 
 import junit.framework.TestCase;
 import org.junit.Before;
+import org.strategyGame.ServiceLocatorMap;
 import org.strategyGame.ecsStructure.ECSManager;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
@@ -14,7 +15,7 @@ public class MovementSystemTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        ecsManager = new ECSManager(new ComponentManager());
+        ecsManager = new ECSManager(new ComponentManager(), new ServiceLocatorMap());
         coordinates = new Coordinates();
         coordinates.diagonal = 3;
         coordinates.column = 3;
