@@ -2,41 +2,66 @@ package org.strategyGame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import org.strategyGame.graphics.TextDisplay;
+import org.strategyGame.ecsStructure.ECSManager;
+import org.strategyGame.graphics.GraphicsComponent;
+import org.strategyGame.graphics.GraphicsManager;
 import org.strategyGame.resources.ResourceType;
 import org.strategyGame.resources.TypedResourceAmount;
+import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
 
 public class MyGdxGame extends ApplicationAdapter {
-    private SpriteBatch batch;
-    Texture img;
-
-    private TextDisplay textDisplay;
 
     private final float IDEALIZED_FRAME_LENGTH = 1.0f / 60.0f;
     private float elapsedTimeSinceLastUpdate = 0;
+    private PlayerData playerData;
+    private ECSManager ecsManager;
 
-    PlayerData playerData;
+    private SpriteBatch batch;
+    private GraphicsManager graphicsManager;
 
     /**
      * Sets up the game.
      */
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
         playerData = new PlayerData();
-        textDisplay = new TextDisplay(batch);
+        ecsManager = new ECSManager(new ComponentManager());
+
+        batch = new SpriteBatch();
+        graphicsManager = new GraphicsManager(batch, playerData, ecsManager);
+
+        runTestCodeSetup();
+    }
+
+    private void runTestCodeSetup() {
+        //Entities for testing
+        GraphicsComponent graphicsComponent = new GraphicsComponent();
+        graphicsComponent.x = 0;
+        graphicsComponent.y = 0;
+        graphicsComponent.width = 250;
+        graphicsComponent.height = 250;
+        graphicsComponent.spriteName = "swordsman";
+        ecsManager.createEntity(graphicsComponent);
+
+        graphicsComponent = new GraphicsComponent();
+        graphicsComponent.x = 300;
+        graphicsComponent.y = 0;
+        graphicsComponent.width = 250;
+        graphicsComponent.height = 250;
+        graphicsComponent.spriteName = "swordsman";
+        graphicsComponent.isFlippedHorizontally = true;
+        ecsManager.createEntity(graphicsComponent);
     }
 
     /**
-     * Handles the bulk of gameplay - i.e.
+     * Handles the bulk of the gameplay and manages the game loop.
      */
     @Override
     public void render() {
         ScreenUtils.clear(0.2f, 0.8f, 0.2f, 1);
+        batch.begin();
 
         //Game loop
         elapsedTimeSinceLastUpdate += Gdx.graphics.getDeltaTime();
@@ -45,6 +70,8 @@ public class MyGdxGame extends ApplicationAdapter {
             update();
             elapsedTimeSinceLastUpdate -= IDEALIZED_FRAME_LENGTH;
         }
+
+        runTestCodeUpdate();
         renderUpdatedGame();
     }
 
@@ -54,17 +81,19 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     private void renderUpdatedGame() {
-        batch.begin();
 
-        textDisplay.displayString(((int) playerData.getStorageAmount(ResourceType.WOOD)) + " wood", 250, 250, 2);
-        batch.draw(new Texture("HexTile.png"), 100, 10);
+        graphicsManager.render();
 
         batch.end();
+    }
+
+    private void runTestCodeUpdate() {
+        graphicsManager.displayString("WORDS", 0, 250, 3);
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        img.dispose();
+        graphicsManager.dispose();
     }
 }

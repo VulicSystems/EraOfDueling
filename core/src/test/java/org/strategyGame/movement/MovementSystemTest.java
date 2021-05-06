@@ -9,74 +9,74 @@ import org.terasology.gestalt.entitysystem.entity.EntityRef;
 public class MovementSystemTest extends TestCase {
 
     private ECSManager ecsManager;
-    private Coordinates coordinates;
+    private BoardPosition boardPosition;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         ecsManager = new ECSManager(new ComponentManager());
-        coordinates = new Coordinates();
-        coordinates.diagonal = 3;
-        coordinates.column = 3;
+        boardPosition = new BoardPosition();
+        boardPosition.diagonal = 3;
+        boardPosition.column = 3;
     }
 
     public void testMoveEastNorth() {
-        EntityRef entity = ecsManager.createEntity(coordinates);
+        EntityRef entity = ecsManager.createEntity(boardPosition);
 
         ecsManager.sendEventBlocking(new MoveEastNorthEvent(), entity);
-        Coordinates newCoordinates = entity.getComponent(Coordinates.class).get();
+        BoardPosition newBoardPosition = entity.getComponent(BoardPosition.class).get();
 
-        assertEquals(3, newCoordinates.diagonal);
-        assertEquals(4, newCoordinates.column);
+        assertEquals(3, newBoardPosition.diagonal);
+        assertEquals(4, newBoardPosition.column);
     }
 
     public void testMoveEastSouth() {
-        EntityRef entity = ecsManager.createEntity(coordinates);
+        EntityRef entity = ecsManager.createEntity(boardPosition);
 
         ecsManager.sendEventBlocking(new MoveEastSouthEvent(), entity);
-        Coordinates newCoordinates = entity.getComponent(Coordinates.class).get();
+        BoardPosition newBoardPosition = entity.getComponent(BoardPosition.class).get();
 
-        assertEquals(4, newCoordinates.diagonal);
-        assertEquals(4, newCoordinates.column);
+        assertEquals(4, newBoardPosition.diagonal);
+        assertEquals(4, newBoardPosition.column);
     }
 
     public void testMoveSouth() {
-        EntityRef entity = ecsManager.createEntity(coordinates);
+        EntityRef entity = ecsManager.createEntity(boardPosition);
 
         ecsManager.sendEventBlocking(new MoveSouthEvent(), entity);
-        Coordinates newCoordinates = entity.getComponent(Coordinates.class).get();
+        BoardPosition newBoardPosition = entity.getComponent(BoardPosition.class).get();
 
-        assertEquals(4, newCoordinates.diagonal);
-        assertEquals(3, newCoordinates.column);
+        assertEquals(4, newBoardPosition.diagonal);
+        assertEquals(3, newBoardPosition.column);
     }
 
     public void testMoveWestSouth() {
-        EntityRef entity = ecsManager.createEntity(coordinates);
+        EntityRef entity = ecsManager.createEntity(boardPosition);
 
         ecsManager.sendEventBlocking(new MoveWestSouthEvent(), entity);
-        Coordinates newCoordinates = entity.getComponent(Coordinates.class).get();
+        BoardPosition newBoardPosition = entity.getComponent(BoardPosition.class).get();
 
-        assertEquals(3, newCoordinates.diagonal);
-        assertEquals(2, newCoordinates.column);
+        assertEquals(3, newBoardPosition.diagonal);
+        assertEquals(2, newBoardPosition.column);
     }
 
     public void testMoveWestNorth() {
-        EntityRef entity = ecsManager.createEntity(coordinates);
+        EntityRef entity = ecsManager.createEntity(boardPosition);
 
         ecsManager.sendEventBlocking(new MoveWestNorthEvent(), entity);
-        Coordinates newCoordinates = entity.getComponent(Coordinates.class).get();
+        BoardPosition newBoardPosition = entity.getComponent(BoardPosition.class).get();
 
-        assertEquals(2, newCoordinates.diagonal);
-        assertEquals(2, newCoordinates.column);
+        assertEquals(2, newBoardPosition.diagonal);
+        assertEquals(2, newBoardPosition.column);
     }
 
     public void testMoveNorth() {
-        EntityRef entity = ecsManager.createEntity(coordinates);
+        EntityRef entity = ecsManager.createEntity(boardPosition);
 
         ecsManager.sendEventBlocking(new MoveNorthEvent(), entity);
-        Coordinates newCoordinates = entity.getComponent(Coordinates.class).get();
+        BoardPosition newBoardPosition = entity.getComponent(BoardPosition.class).get();
 
-        assertEquals(2, newCoordinates.diagonal);
-        assertEquals(3, newCoordinates.column);
+        assertEquals(2, newBoardPosition.diagonal);
+        assertEquals(3, newBoardPosition.column);
     }
 }

@@ -1,0 +1,12 @@
+sprites.png
+size: 232, 232
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+swordsman
+  rotate: false
+  xy: 0, 0
+  size: 232, 232
+  orig: 232, 232
+  offset: 0, 0
+  index: -1
