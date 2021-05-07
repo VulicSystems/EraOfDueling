@@ -27,7 +27,11 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void create() {
         playerData = new PlayerData();
-        ecsManager = new ECSManager(new ComponentManager());
+
+        //Add services here
+        ServiceLocatorMap serviceLocatorMap = new ServiceLocatorMap();
+
+        ecsManager = new ECSManager(new ComponentManager(), new ServiceLocatorMap());
 
         batch = new SpriteBatch();
         graphicsManager = new GraphicsManager(batch, playerData, ecsManager);

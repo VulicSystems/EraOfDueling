@@ -16,9 +16,9 @@ public class MovementSystemTest extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
         ecsManager = new ECSManager(new ComponentManager(), new ServiceLocatorMap());
-        coordinates = new Coordinates();
-        coordinates.diagonal = 3;
-        coordinates.column = 3;
+        boardPosition = new BoardPosition();
+        boardPosition.diagonal = 3;
+        boardPosition.column = 3;
     }
 
     public void testMoveEastNorth() {
