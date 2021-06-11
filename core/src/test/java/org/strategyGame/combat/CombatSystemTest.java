@@ -12,7 +12,7 @@ import org.terasology.gestalt.entitysystem.component.management.ComponentManager
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 
 /**
- * This tests the {@link CombatSystem}.
+ * Tests the {@link CombatSystem}.
  */
 public class CombatSystemTest extends TestCase {
     private ECSManager ecsManager;
