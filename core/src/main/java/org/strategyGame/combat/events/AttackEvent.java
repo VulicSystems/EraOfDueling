@@ -2,6 +2,7 @@ package org.strategyGame.combat.events;
 
 import org.strategyGame.combat.AttackType;
 import org.strategyGame.health.Health;
+import org.strategyGame.units.components.UnitAttackDetails;
 import org.strategyGame.units.components.UnitComponent;
 import org.terasology.gestalt.entitysystem.event.Event;
 
@@ -21,5 +22,11 @@ public class AttackEvent implements Event {
         this.attackType = attackType;
         this.damageAmount = damageAmount;
         this.chanceOfSuccess = chanceOfSuccess;
+    }
+
+    public AttackEvent(UnitAttackDetails unitAttackDetails) {
+        this.attackType = unitAttackDetails.getAttackType();
+        this.damageAmount = unitAttackDetails.getAttackDamage();
+        this.chanceOfSuccess = unitAttackDetails.getChanceOfHitting();
     }
 }
