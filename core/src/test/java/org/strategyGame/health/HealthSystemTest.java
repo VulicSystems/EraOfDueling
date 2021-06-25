@@ -33,17 +33,4 @@ public class HealthSystemTest extends TestCase {
         assertEquals(90, newHealth.currentHealth);
         assertEquals(100, newHealth.maxHealth);
     }
-
-    public void testBelowZeroDamage() {
-        EntityRef entity = ecsManager.createEntity(health);
-        DamageEvent damageEvent = new DamageEvent();
-        damageEvent.damageAmount = 110;
-
-        ecsManager.sendEventBlocking(damageEvent, entity);
-        Health newHealth = entity.getComponent(Health.class).get();
-
-        assertEquals(0, newHealth.currentHealth);
-        assertEquals(100, newHealth.maxHealth);
-
-    }
 }
