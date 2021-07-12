@@ -2,8 +2,10 @@ package org.strategyGame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import org.strategyGame.ecsStructure.ECSManager;
 import org.strategyGame.graphics.GraphicsComponent;
 import org.strategyGame.graphics.GraphicsManager;
@@ -15,11 +17,21 @@ public class MyGdxGame extends ApplicationAdapter {
 
     private final float IDEALIZED_FRAME_LENGTH = 1.0f / 60.0f;
     private float elapsedTimeSinceLastUpdate = 0;
+
     private PlayerData playerData;
     private ECSManager ecsManager;
+    private ServiceLocatorMap serviceLocatorMap;
 
     private SpriteBatch batch;
     private GraphicsManager graphicsManager;
+
+    private OrthographicCamera camera;
+    private StretchViewport viewport;
+
+    //This can be arbitrarily set to whatever amount we want
+    final float WORLD_WIDTH = 1000;
+    final float WORLD_HEIGHT = 1000;
+    private float aspectRatio;
 
     /**
      * Sets up the game.
@@ -29,12 +41,19 @@ public class MyGdxGame extends ApplicationAdapter {
         playerData = new PlayerData();
 
         //Add services here
-        ServiceLocatorMap serviceLocatorMap = new ServiceLocatorMap();
+        serviceLocatorMap = new ServiceLocatorMap();
 
-        ecsManager = new ECSManager(new ComponentManager(), new ServiceLocatorMap());
+        ecsManager = new ECSManager(new ComponentManager(), serviceLocatorMap);
 
         batch = new SpriteBatch();
+        aspectRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
+        camera = new OrthographicCamera();
+        viewport = new StretchViewport(1000, 1000, camera);
+        viewport.apply();
+        camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
+
         graphicsManager = new GraphicsManager(batch, playerData, ecsManager);
+        serviceLocatorMap.add(GraphicsManager.class, graphicsManager);
 
         runTestCodeSetup();
     }
@@ -44,16 +63,16 @@ public class MyGdxGame extends ApplicationAdapter {
         GraphicsComponent graphicsComponent = new GraphicsComponent();
         graphicsComponent.x = 0;
         graphicsComponent.y = 0;
-        graphicsComponent.width = 250;
-        graphicsComponent.height = 250;
+        graphicsComponent.width = 400;
+        graphicsComponent.height = 400;
         graphicsComponent.spriteName = "swordsman";
         ecsManager.createEntity(graphicsComponent);
 
         graphicsComponent = new GraphicsComponent();
-        graphicsComponent.x = 300;
+        graphicsComponent.x = 400;
         graphicsComponent.y = 0;
-        graphicsComponent.width = 250;
-        graphicsComponent.height = 250;
+        graphicsComponent.width = 400;
+        graphicsComponent.height = 400;
         graphicsComponent.spriteName = "swordsman";
         graphicsComponent.isFlippedHorizontally = true;
         ecsManager.createEntity(graphicsComponent);
@@ -65,6 +84,9 @@ public class MyGdxGame extends ApplicationAdapter {
     @Override
     public void render() {
         ScreenUtils.clear(0.2f, 0.8f, 0.2f, 1);
+
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
         //Game loop
@@ -92,12 +114,18 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     private void runTestCodeUpdate() {
-        graphicsManager.displayString("WORDS", 0, 250, 3);
+        graphicsManager.displayString("WORDS", 300, 500, 5);
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         graphicsManager.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     }
 }
