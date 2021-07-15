@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.strategyGame.PlayerData;
 import org.strategyGame.ecsStructure.ECSManager;
+import org.strategyGame.ecsStructure.InjectedField;
 import org.terasology.gestalt.entitysystem.entity.EntityIterator;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 
@@ -19,18 +20,16 @@ public class GraphicsManager {
     private SpriteBatch batch;
     private TextDisplay textDisplay;
 
-    private PlayerData playerData;
+    @InjectedField
     private ECSManager ecsManager;
 
     private TextureAtlas textureAtlas = new TextureAtlas("sprites.txt");
     private HashMap<String, Sprite> sprites;
 
-    public GraphicsManager(SpriteBatch batch, PlayerData playerData, ECSManager ecsManager) {
+    public GraphicsManager(SpriteBatch batch) {
         this.batch = batch;
         batch.enableBlending();
         textDisplay = new TextDisplay(batch);
-        this.playerData = playerData;
-        this.ecsManager = ecsManager;
 
         sprites = new HashMap<>();
     }

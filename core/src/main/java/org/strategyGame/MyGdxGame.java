@@ -31,7 +31,6 @@ public class MyGdxGame extends ApplicationAdapter {
     //This can be arbitrarily set to whatever amount we want
     final float WORLD_WIDTH = 1000;
     final float WORLD_HEIGHT = 1000;
-    private float aspectRatio;
 
     /**
      * Sets up the game.
@@ -44,15 +43,19 @@ public class MyGdxGame extends ApplicationAdapter {
         serviceLocatorMap = new ServiceLocatorMap();
 
         ecsManager = new ECSManager(new ComponentManager(), serviceLocatorMap);
+        serviceLocatorMap.add(ECSManager.class, ecsManager);
 
         batch = new SpriteBatch();
-        aspectRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
+
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(1000, 1000, camera);
+        serviceLocatorMap.add(OrthographicCamera.class, camera);
+
+        viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         viewport.apply();
         camera.translate(camera.viewportWidth / 2, camera.viewportHeight / 2);
 
-        graphicsManager = new GraphicsManager(batch, playerData, ecsManager);
+        graphicsManager = new GraphicsManager(batch);
+        Injector.injectFields(graphicsManager, serviceLocatorMap);
         serviceLocatorMap.add(GraphicsManager.class, graphicsManager);
 
         runTestCodeSetup();
