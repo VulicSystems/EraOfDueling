@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import org.strategyGame.ecsStructure.ECSManager;
 import org.strategyGame.graphics.GraphicsComponent;
 import org.strategyGame.graphics.GraphicsManager;
+import org.strategyGame.input.InputHandler;
 import org.strategyGame.resources.ResourceType;
 import org.strategyGame.resources.TypedResourceAmount;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
@@ -28,9 +29,11 @@ public class MyGdxGame extends ApplicationAdapter {
     private OrthographicCamera camera;
     private StretchViewport viewport;
 
+    private InputHandler inputHandler;
+
     //This can be arbitrarily set to whatever amount we want
-    final float WORLD_WIDTH = 1000;
-    final float WORLD_HEIGHT = 1000;
+    public static final float WORLD_WIDTH = 1000;
+    public static final float WORLD_HEIGHT = 1000;
 
     /**
      * Sets up the game.
@@ -79,6 +82,11 @@ public class MyGdxGame extends ApplicationAdapter {
         graphicsComponent.spriteName = "swordsman";
         graphicsComponent.isFlippedHorizontally = true;
         ecsManager.createEntity(graphicsComponent);
+
+        inputHandler = new InputHandler();
+        Injector.injectFields(inputHandler, serviceLocatorMap);
+        Gdx.input.setInputProcessor(inputHandler);
+        serviceLocatorMap.add(InputHandler.class, inputHandler);
     }
 
     /**
@@ -117,7 +125,7 @@ public class MyGdxGame extends ApplicationAdapter {
     }
 
     private void runTestCodeUpdate() {
-        graphicsManager.displayString("WORDS", 300, 500, 5);
+        inputHandler.render();
     }
 
     @Override
