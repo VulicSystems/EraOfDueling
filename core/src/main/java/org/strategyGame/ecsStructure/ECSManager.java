@@ -1,7 +1,7 @@
 package org.strategyGame.ecsStructure;
 
-import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
+import org.strategyGame.Injector;
 import org.strategyGame.ServiceLocatorMap;
 import org.terasology.gestalt.entitysystem.component.Component;
 import org.terasology.gestalt.entitysystem.component.management.ComponentManager;
@@ -17,10 +17,7 @@ import org.terasology.gestalt.entitysystem.event.EventSystem;
 import org.terasology.gestalt.entitysystem.event.impl.EventReceiverMethodSupport;
 import org.terasology.gestalt.entitysystem.event.impl.EventSystemImpl;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +53,7 @@ public class ECSManager {
             if (!Modifier.isAbstract(systemClass.getModifiers())) {
                 try {
                     GameSystem system = systemClass.newInstance();
-                    injectFields(system, serviceLocatorMap);
+                    Injector.injectFields(system, serviceLocatorMap);
                     eventReceiverMethodSupport.register(system, eventSystem);
                 } catch (InstantiationException e) {
                     e.printStackTrace();
@@ -65,25 +62,6 @@ public class ECSManager {
                 }
             }
         }
-    }
-
-    private void injectFields(GameSystem system, ServiceLocatorMap serviceLocatorMap) {
-        AccessController.doPrivileged((PrivilegedAction<GameSystem>) () -> {
-            for (Field field : ReflectionUtils.getAllFields(system.getClass(),
-                    ReflectionUtils.withAnnotation(InjectedField.class))) {
-                Object value = serviceLocatorMap.get(field.getType());
-                if (value != null) {
-                    try {
-                        field.setAccessible(true);
-                        field.set(system, value);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return null;
-        });
     }
 
     /**

@@ -8,7 +8,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.4'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.12'
     }
 }
@@ -59,13 +59,18 @@ project(":android") {
 
     configurations { natives }
 
-    gradle.startParameter.excludedTaskNames += "validateSigningDebug"
-    gradle.startParameter.excludedTaskNames += "signingConfigWriterDebug"
-
     android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
+        }
+        signingConfigs {
+            debug {
+                storeFile rootProject.file("debug.keystore")
+                storePassword "salami-hoax-fearless"
+                keyAlias "key0"
+                keyPassword "tasty-intermix-feasible"
+            }
         }
     }
     dependencies {

@@ -1,10 +1,13 @@
 package org.strategyGame.graphics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import org.strategyGame.MyGdxGame;
 import org.strategyGame.PlayerData;
 import org.strategyGame.ecsStructure.ECSManager;
+import org.strategyGame.ecsStructure.InjectedField;
 import org.terasology.gestalt.entitysystem.entity.EntityIterator;
 import org.terasology.gestalt.entitysystem.entity.EntityRef;
 
@@ -19,18 +22,16 @@ public class GraphicsManager {
     private SpriteBatch batch;
     private TextDisplay textDisplay;
 
-    private PlayerData playerData;
+    @InjectedField
     private ECSManager ecsManager;
 
     private TextureAtlas textureAtlas = new TextureAtlas("sprites.txt");
     private HashMap<String, Sprite> sprites;
 
-    public GraphicsManager(SpriteBatch batch, PlayerData playerData, ECSManager ecsManager) {
+    public GraphicsManager(SpriteBatch batch) {
         this.batch = batch;
         batch.enableBlending();
         textDisplay = new TextDisplay(batch);
-        this.playerData = playerData;
-        this.ecsManager = ecsManager;
 
         sprites = new HashMap<>();
     }
@@ -76,17 +77,38 @@ public class GraphicsManager {
     /**
      * Displays a string at the specified horizontal and vertical location.
      */
-    public void displayString(String string, float horizontalPosition, float verticalPosition) {
+    public void displayStringUsingWorldCoordinates(String string, float horizontalPosition, float verticalPosition) {
         textDisplay.displayString(string, horizontalPosition, verticalPosition);
     }
 
     /**
      * Displays a string at the specified horizontal and vertical location, multiplied in size by the scale.
      *
+     * @param string      the string to be displayed
+     * @param horizontalPosition the horizontal coordinate, based on world coordinates
+     * @param verticalPosition the vertical coordinate, based on world coordinates
      * @param scale the size multiplier
      */
-    public void displayString(String string, float horizontalPosition, float verticalPosition, float scale) {
+    public void displayStringUsingWorldCoordinates(String string, float horizontalPosition, float verticalPosition, float scale) {
         textDisplay.displayString(string, horizontalPosition, verticalPosition, scale);
+    }
+
+    /**
+     * Displays a string at the specified "real" coordinates, i.e. graphics coordinates, multiplied in size by the scale.
+     * <p>
+     * Only use this method if you're sure that the coordinates are LibGDX-specific, not game world coordinates
+     *
+     * @param string      the string to be displayed
+     * @param xCoordinate the horizontal coordinate, based on LibGDX coordinates
+     * @param yCoordinate the vertical coordinate, based on LibGDX coordinates
+     * @param scale       the size multiplier
+     */
+    public void displayStringUsingLibgdxCoordinates(String string, float xCoordinate, float yCoordinate, float scale) {
+        xCoordinate *= MyGdxGame.WORLD_WIDTH;
+        xCoordinate /= Gdx.graphics.getWidth();
+        yCoordinate *= MyGdxGame.WORLD_HEIGHT;
+        yCoordinate /= Gdx.graphics.getHeight();
+        textDisplay.displayString(string, xCoordinate, yCoordinate, scale);
     }
 
     /**
