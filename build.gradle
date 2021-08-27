@@ -59,9 +59,6 @@ project(":android") {
 
     configurations { natives }
 
-    gradle.startParameter.excludedTaskNames += "validateSigningDebug"
-    gradle.startParameter.excludedTaskNames += "signingConfigWriterDebug"
-
     android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
@@ -70,9 +67,9 @@ project(":android") {
         signingConfigs {
             debug {
                 storeFile rootProject.file("debug.keystore")
-                storePassword "password"
-                keyAlias "keyAlias"
-                keyPassword "password"
+                storePassword "salami-hoax-fearless"
+                keyAlias "key0"
+                keyPassword "tasty-intermix-feasible"
             }
         }
     }
